@@ -1,0 +1,76 @@
+.item {
+	top: 50%;
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	background: orange;
+}
+
+.resizer {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: black;
+	z-index: 2;
+}
+
+.resizer.nw{
+	top: -1px;
+	left: -1px;
+	cursor: nw-resize;
+}
+.resizer.ne{
+	top: -1px;
+	right: -1px;
+	cursor: ne-resize;
+}
+.resizer.sw{
+	bottom: -1px;
+	left: -1px;
+	cursor: sw-resize;
+}
+.resizer.se{
+	bottom: -1px;
+	right: -1px;
+	cursor: se-resize;
+}
+
+table {
+	border: 1px solid rebeccapurple;
+	text-align: left;
+	border-collapse: collapse;
+}
+
+
+td, th {
+ position: relative;
+ padding: 10px 10px;
+ border: 1px solid rebeccapurple;
+}
+
+.first::after,
+.second::after {
+	content: '';
+	position: absolute;
+	background: rgba(0, 0, 255, 0.133);
+	width: 3px;
+	height: 100%;
+	top: 0;
+	right: -2px;
+	opacity: 0;
+	cursor: ew-resize; 
+}
+
+.th:hover{
+	background: rgba(0, 0, 255, 0.133);
+}
+
+.th:hover:not(:last-child){
+	border-right: 1px solid rgba(0, 0, 255, 0.133);
+}
+
+.th:hover.first::after,
+.th:hover.second::after{
+	opacity: 1;
+}
