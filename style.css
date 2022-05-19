@@ -50,18 +50,17 @@ td, th {
  z-index: 1;
 }
 
-.th:hover{
+.th{
 	user-select: none;   
-	background: rgba(0, 0, 255, 0.133);
+
 }
 
 .borderTouch {
 	position: absolute;
 	width: 3px;
 	height: 100%;
-	padding: 0 10px;
 	top: 0;
-	right: 0px;
+	right: 0;
 	opacity: 0;
 	z-index: 2;
 	transition: all 0.2s ease-in;
@@ -71,15 +70,20 @@ td, th {
 	content: "";
 	position: absolute;
 	background: rgb(0, 0, 255);
-	width: 2px;
+	width: 3px;
 	height: 100%;
 	top: 0;
-	right: -2px;
+	right: 0px;
 	box-shadow: 0 0 11px 2px rgb(0, 0, 255);
 }
 
 
 .th:not(:last-child) > .borderTouch:hover{
 	opacity: 1;
-	cursor: ew-resize; 
+}
+
+
+.columnSelector:hover {
+	position: relative;
+	border-right: 2px solid #000000;
 }

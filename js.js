@@ -84,63 +84,77 @@ for (let resizer of resizes) {
         }
     }
 }
+const table1 = document.getElementById("table1");
 
 const th = document.querySelectorAll(".th");
-for (const element of th) {
-    let borderTouch = document.createElement("div");
-    borderTouch.classList.add("borderTouch");
-    element.appendChild(borderTouch);
+
+function createDiv(height){
+	var div = document.createElement('div');
+	div.style.top = "0";
+	div.style.right = "0";
+	div.style.width = '5px';
+	div.style.position = 'absolute';
+	div.style.cursor = 'col-resize';
+	div.style.userSelect = 'none';
+	div.style.height = height+'px';
+	div.className = 'columnSelector';
+	return div;
 }
 
-let elBordersTouch = document.querySelectorAll(".borderTouch");
+for (const element of th) {
+	let borderTouch = createDiv(table1.offsetHeight)
+	element.appendChild(borderTouch);
+	element.style.position = "relative"; 
+}
+
+let elBordersTouch = document.querySelectorAll(".columnSelector");
 
 let currentBorderTouch = undefined;
 for (const element of elBordersTouch) {
     element.addEventListener("mousedown", mousedown);
+	let pageX, curCol, nxtCol, curColWidth, nxtColWidth;
 
     function mousedown(e) {
-        let thisEl = this;
-        currentBorderTouch = thisEl;
-        console.log("currentBorderTouch", currentBorderTouch);
-        let parentEl = currentBorderTouch.parentElement;
-        console.log("parentEl", parentEl);
-        let prevWidthParentEl = parentEl.getBoundingClientRect().width;
-        console.log("prevWidthParentEl", prevWidthParentEl);
+       let thisEl = this;
+	   	curCol = thisEl.parentElement;
+		nxtCol = curCol.nextElementSibling;
+		pageX = e.pageX;
+		curColWidth = curCol.offsetWidth;
+		let padding = paddingDiff(curCol);
+		// added dif padding how this work 
         window.addEventListener("mousemove", mousemove);
         window.addEventListener("mouseup", mouseup);
-        //let padding = paddingDiff(parentEl)
-        function mousemove(e) {
-            let currentParentElParamCol = parentEl.getBoundingClientRect();
-            if (parentEl.classList.contains("th")) {
-                parentEl.style.width =
-                    currentParentElParamCol.width -
-                    (prevWidthParentEl - e.clientX) +
-                    "px";
-            }
+      
+		function paddingDiff(col) {
+			if (getStyleVal(col, "box-sizing") == 'border-box') {
+				return 0;
+			}
+			const padLeft = getStyleVal(col, "padding-left")
+			const padRight = getStyleVal(col, "padding-right")
+			return (parseInt(padLeft) + parseInt(padRight));
+		}
 
-            prevWidthParentEl = parentEl.getBoundingClientRect().width;
+		function getStyleVal(elm, css) {
+			return (window.getComputedStyle(elm, null).getPropertyValue(css))
+		}
+
+        function mousemove(e) {
+			if (curCol) {
+				let diffX = e.pageX - pageX;
+				if (nxtCol) {
+
+					nxtCol.style.width = nxtColWidth - diffX + "px";
+					curCol.style.width = curColWidth + diffX + "px";
+					curCol.style.backgroundColor = "green";
+				}
+			}
         }
 
-        function mouseup() {
+		function mouseup() {
+			curCol.style.backgroundColor = "";
             window.removeEventListener("mousemove", mousemove);
             window.removeEventListener("mouseup", mouseup);
             isResizing = false;
         }
     }
 }
-/* 
-function paddingDiff(col) {
-
-	if (getStyleVal(col, 'box-sizing') == 'border-box') {
-		return 0;
-	}
-
-	let padLeft = getStyleVal(col, 'padding-left');
-	let padRight = getStyleVal(col, 'padding-right');
-	return (parseInt(padLeft) + parseInt(padRight));
-
-}
-
-function getStyleVal(elm, css) {
-	return (window.getComputedStyle(elm, null).getPropertyValue(css))
-}	 */

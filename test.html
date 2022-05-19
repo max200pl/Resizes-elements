@@ -5,7 +5,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./style.css">
+	<link href="./favicon.svg" rel="icon" type="image/x-icon" />
+
+	<link rel="stylesheet" href="style.css">
 	<title>Resizes elements</title>
 </head>
 
@@ -17,7 +19,7 @@
 		<div class="resizer se"></div>
 	</div>
 
-	<table>
+	<table id="table1">
 		<colgroup>
 			<col class="col">
 			<col class="col">
@@ -39,7 +41,32 @@
 			<td>Mexico</td>
 		</tr>
 	</table>
+
+	<style>
+		*{box-sizing: border-box;}
+		table{border-collapse:collapse;}
+		td,th{padding:5px 15px;text-align:left;}
+		table,th,td{border:1px solid #000;}
+	</style>
+		
+		<table id="tableId">
+		 <thead>
+		  <tr>
+		   <th><input type="checkbox" /></th>
+		   <th>Size</th>
+		   <th>File</th>
+		  </tr>
+		 </thead>
+		 <tbody>
+		  <tr>
+		   <td><input type="checkbox" /></td>
+		   <td>10Mb</td>
+		   <td>C:\Users\BrainBell\Desktop\Empty\abc.txt</td>
+		  </tr>
+		 </tbody>
+		</table>
 </body>
 <script src="js.js"></script>
+<script src="js2.js"></script>
 
 </html>
