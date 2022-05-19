@@ -121,7 +121,7 @@ for (const element of elBordersTouch) {
 		pageX = e.pageX;
 		curColWidth = curCol.offsetWidth;
 		let padding = paddingDiff(curCol);
-		// added dif padding how this work 
+		// added dif padding how this work? when padding added created bug effect flicker border
         window.addEventListener("mousemove", mousemove);
         window.addEventListener("mouseup", mouseup);
       
